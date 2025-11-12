@@ -1,0 +1,71 @@
+---
+import { trainingData } from "../data/TrainingData.js";
+---
+
+<section
+  class="py-16 bg-gradient-to-br from-red-700 via-red-800 to-black text-white relative"
+>
+  <div class="max-w-6xl mx-auto px-4">
+    <h2 class="text-4xl font-bold mb-10 text-center uppercase tracking-wide">
+      Categorías
+    </h2>
+
+    <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 justify-items-center">
+      {
+        trainingData.map((cat) => (
+          <div class="bg-white/10 backdrop-blur-sm rounded-lg shadow-lg overflow-hidden hover:scale-105 hover:shadow-xl transition-transform duration-300">
+            <img
+              src={cat.image}
+              alt={cat.category}
+              class="h-48 w-full object-cover opacity-90"
+            />
+            <div class="p-6">
+              <h3 class="text-2xl font-semibold mb-2 text-white">
+                {cat.category}
+              </h3>
+              <p class="text-gray-200 mb-4">{cat.years}</p>
+
+              <div class="mb-4">
+                <h4 class="font-medium text-gray-100 mb-1">Horarios:</h4>
+                <ul class="text-gray-200 text-sm space-y-1">
+                  {cat.schedule.map((s) => (
+                    <li>{s.day ? `${s.day}: ${s.time}` : s.note}</li>
+                  ))}
+                </ul>
+              </div>
+
+              <div>
+                <h4 class="font-medium text-gray-100 mb-1">Sedes:</h4>
+                <ul class="text-gray-200 text-sm space-y-1">
+                  {cat.locations.map((loc) => (
+                    <li>{loc.name}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+
+  <div
+    class="absolute inset-0 bg-[url('/images/pattern-light.svg')] opacity-10"
+  >
+  </div>
+</section>
+<style>
+  /* Centra la última tarjeta si queda sola */
+  @media (min-width: 1024px) {
+    .grid > :last-child:nth-child(3n+1) {
+      grid-column: 2; /* la coloca al centro en pantallas grandes (3 columnas) */
+    }
+  }
+  @media (min-width: 640px) and (max-width: 1023px) {
+    .grid > :last-child:nth-child(2n+1) {
+      grid-column: 1 / span 2; /* centra en grids de 2 columnas */
+      justify-self: center;
+    }
+  }
+</style>
+
