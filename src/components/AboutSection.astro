@@ -1,0 +1,68 @@
+---
+import about from "../data/about.js";
+import logo from "../assets/Club_Toluca_Logo.png";
+---
+
+
+<section
+  class="relative w-full px-6 py-20 bg-white text-black overflow-hidden"
+  id="about"
+>
+
+  <div class="relative max-w-6xl mx-auto flex flex-col gap-10 z-10">
+    <!-- Título principal -->
+    <div class="text-center">
+      <h2
+        class="text-4xl font-extrabold text-red-700 mb-2 drop-shadow-[0_1px_1px_rgba(0,0,0,0.2)]"
+      >
+        {about.title}
+      </h2>
+      <h3 class="text-xl font-semibold text-gray-800 mb-4">
+        {about.subtitle}
+      </h3>
+      <p class="text-gray-700 text-lg max-w-3xl mx-auto">
+        {about.description}
+      </p>
+    </div>
+
+     <div class="absolute inset-0 flex items-center justify-center pointer-events-none select-none">
+    
+    <img
+      src={logo.src}
+      alt="Marca de agua Club Toluca"
+      class="opacity-10 w-[90%] max-w-[800px] pt-24"
+    />
+  </div>
+
+    <!-- Contenedor general -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+      <!-- Misión -->
+      <div class="bg-red-700 text-white rounded-xl p-8 shadow-lg">
+        <h3 class="text-2xl font-semibold mb-3">Misión</h3>
+        <p class="text-gray-100">{about.mission}</p>
+      </div>
+
+      <!-- Visión -->
+      <div class="bg-gray-100 rounded-xl p-8 shadow-lg">
+        <h3 class="text-2xl font-semibold text-red-700 mb-3">Visión</h3>
+        <p class="text-gray-700">{about.vision}</p>
+      </div>
+
+      <!-- Valores -->
+      <div class="bg-gray-100 rounded-xl p-8 shadow-lg">
+        <h3 class="text-2xl font-semibold text-red-700 mb-3">Valores</h3>
+        <ul class="list-disc list-inside text-gray-700 space-y-2">
+          {about.values.map((valor) => (
+            <li>{valor}</li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Antecedentes -->
+      <div class="bg-red-700 text-white rounded-xl p-8 shadow-lg">
+        <h3 class="text-2xl font-semibold mb-3">Antecedentes</h3>
+        <p class="text-gray-100">{about.background}</p>
+      </div>
+    </div>
+  </div>
+</section>

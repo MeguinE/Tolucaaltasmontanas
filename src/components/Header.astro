@@ -1,0 +1,39 @@
+---
+import Logo from "./Logo.astro";
+---
+
+<header
+  class="fixed top-0 left-0 w-full flex items-center justify-between py-4 px-8 border-b border-red-700 bg-white/80 backdrop-blur-md text-black z-50 shadow-sm"
+>
+
+  <a
+    href="/"
+    class="flex items-center hover:opacity-90 transition-opacity duration-300"
+  >
+    <Logo />
+  </a>
+  <!-- Navegación -->
+  <nav class="flex gap-6 text-sm font-semibold tracking-wide uppercase">
+    <a
+      href="/"
+      class="text-black hover:text-red-600 transition-colors duration-300"
+      >Home</a
+    >
+    <a
+      href="/projects"
+      class="text-black hover:text-red-600 transition-colors duration-300"
+      >Projects</a
+    >
+    <a
+      href="/about"
+      class="text-black hover:text-red-600 transition-colors duration-300"
+      >About Me</a
+    >
+    <a
+      href="/blog"
+      class="text-black hover:text-red-600 transition-colors duration-300"
+      >Blog</a
+    >
+  </nav>
+  
+</header>

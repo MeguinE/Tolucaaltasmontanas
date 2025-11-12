@@ -1,0 +1,10 @@
+---
+const { text, icon } = Astro.props;
+---
+
+<button
+  class="px-5 py-3 rounded-xl border flex items-center gap-2 text-base font-medium hover:bg-gray-200 transition"
+>
+  <span>{icon}</span>
+  {text}
+</button>

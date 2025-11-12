@@ -1,0 +1,39 @@
+.hero-section {
+  background-image: url("src/assets/background-image.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.hero-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-border {
+  position: absolute;
+  inset: 0;
+  border-radius: 1rem; /* igual que rounded-2xl */
+  padding: 2px;
+  background: linear-gradient(120deg, #ff0000, #ffffff, #ff0000, #000000);
+  background-size: 300% 300%;
+  animation: borderLight 6s linear infinite;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* Animación que hace recorrer el brillo */
+@keyframes borderLight {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}

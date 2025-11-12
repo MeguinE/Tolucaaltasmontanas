@@ -1,0 +1,55 @@
+---
+import hero from "../data/hero.js";
+import "../styles/hero.css";
+---
+
+<section class="hero-section w-full px-6 py-16 flex justify-center text-white pt-28">
+  <div
+    class="relative hero-card w-full max-w-6xl rounded-2xl p-10 flex flex-col md:flex-row items-center gap-10 bg-white shadow-[0_0_25px_rgba(0,0,0,0.2)]"
+  >
+    <!-- Logo -->
+
+    <a
+      href="/"
+      class="flex items-center hover:opacity-90 transition-opacity duration-300"
+    >
+      <img
+        src={hero.logo}
+        alt="logo"
+        class="w-56 drop-shadow-[0_0_10px_rgba(255,0,0,0.8)]"
+      />
+    </a>
+    <!-- Texto -->
+    <div class="flex flex-col gap-4 text-center md:text-left">
+      <h1
+        class="text-5xl font-extrabold tracking-wide text-red-700 drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)]"
+      >
+        {hero.title}
+      </h1>
+
+      <p class="text-lg leading-relaxed max-w-xl text-black/80">
+        {hero.description}
+      </p>
+
+      <h3 class="text-2xl font-semibold text-red-600 uppercase tracking-widest">
+        {hero.callToAction}
+      </h3>
+
+      <div class="flex flex-wrap justify-center md:justify-start gap-6 mt-6">
+        <a
+          href="#contact"
+          class="px-6 py-3 rounded-xl bg-red-700 hover:bg-red-800 text-white font-semibold shadow-[0_0_15px_rgba(255,0,0,0.4)] transition-all duration-300 flex items-center gap-2"
+        >
+          📧 Contact Me
+        </a>
+
+        <a
+          href="#about"
+          class="px-6 py-3 rounded-xl bg-black text-white hover:bg-gray-800 font-semibold shadow-[0_0_10px_rgba(0,0,0,0.3)] transition-all duration-300 flex items-center gap-2"
+        >
+          👤 About Me
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
