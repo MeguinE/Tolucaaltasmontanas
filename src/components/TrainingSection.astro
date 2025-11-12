@@ -3,69 +3,84 @@ import { trainingData } from "../data/TrainingData.js";
 ---
 
 <section
-  class="py-16 bg-gradient-to-br from-red-700 via-red-800 to-black text-white relative"
+  class="relative py-20 bg-gradient-to-br from-red-700 via-red-800 to-black text-white overflow-hidden" id ="training"
 >
-  <div class="max-w-6xl mx-auto px-4">
-    <h2 class="text-4xl font-bold mb-10 text-center uppercase tracking-wide">
+  <!-- fondo con patrón -->
+  <div
+    class="absolute inset-0 bg-[url('src/assets/background-image.jpg')] bg-cover bg-center opacity-5"
+  ></div>
+
+  <div class="relative max-w-6xl mx-auto px-6">
+    <h2 class="text-4xl font-extrabold mb-14 text-center uppercase tracking-wide text-white drop-shadow-lg">
       Categorías
     </h2>
 
-    <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 justify-items-center">
-      {
-        trainingData.map((cat) => (
-          <div class="bg-white/10 backdrop-blur-sm rounded-lg shadow-lg overflow-hidden hover:scale-105 hover:shadow-xl transition-transform duration-300">
+    <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-3 justify-items-center">
+      {trainingData.map((cat) => (
+        <div
+          class="group relative bg-gradient-to-b from-white/10 to-white/5 rounded-xl shadow-xl overflow-hidden transform transition-all duration-500 hover:scale-[1.03] hover:shadow-2xl hover:from-white/20"
+        >
+          <div class="relative">
             <img
               src={cat.image}
               alt={cat.category}
-              class="h-48 w-full object-cover opacity-90"
+              class="h-52 w-full object-cover transition-transform duration-500 group-hover:scale-110"
             />
-            <div class="p-6">
-              <h3 class="text-2xl font-semibold mb-2 text-white">
-                {cat.category}
-              </h3>
-              <p class="text-gray-200 mb-4">{cat.years}</p>
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-300"
+            ></div>
+            <h3
+              class="absolute bottom-3 left-4 text-xl font-semibold text-amber-200 tracking-wide"
+            >
+              {cat.category}
+            </h3>
+          </div>
 
-              <div class="mb-4">
-                <h4 class="font-medium text-gray-100 mb-1">Horarios:</h4>
-                <ul class="text-gray-200 text-sm space-y-1">
-                  {cat.schedule.map((s) => (
-                    <li>{s.day ? `${s.day}: ${s.time}` : s.note}</li>
-                  ))}
-                </ul>
-              </div>
+          <div class="p-6">
+            <p class="text-gray-200 mb-4 text-sm italic">{cat.years}</p>
 
-              <div>
-                <h4 class="font-medium text-gray-100 mb-1">Sedes:</h4>
-                <ul class="text-gray-200 text-sm space-y-1">
-                  {cat.locations.map((loc) => (
-                    <li>{loc.name}</li>
-                  ))}
-                </ul>
-              </div>
+            <div class="mb-4">
+              <h4 class="text-white font-semibold mb-1 border-l-4 border-red-500 pl-2">
+                Horarios
+              </h4>
+              <ul class="text-gray-300 text-sm space-y-1 leading-relaxed">
+                {cat.schedule.map((s) => (
+                  <li>{s.day ? `${s.day}: ${s.time}` : s.note}</li>
+                ))}
+              </ul>
+            </div>
+
+            <div>
+              <h4 class="text-white font-semibold mb-1 border-l-4 border-red-500 pl-2">
+                Sedes
+              </h4>
+              <ul class="text-gray-300 text-sm space-y-1 leading-relaxed">
+                {cat.locations.map((loc) => (
+                  <li>{loc.name}</li>
+                ))}
+              </ul>
             </div>
           </div>
-        ))
-      }
+        </div>
+      ))}
     </div>
   </div>
 
-  <div
-    class="absolute inset-0 bg-[url('/images/pattern-light.svg')] opacity-10"
-  >
-  </div>
+  <!-- degradado inferior para transición a la siguiente sección -->
+  <div class="absolute bottom-0 left-0 w-full h-20 bg-gradient-to-b from-transparent to-black"></div>
 </section>
+
 <style>
-  /* Centra la última tarjeta si queda sola */
+  /* centra última tarjeta si queda sola */
   @media (min-width: 1024px) {
     .grid > :last-child:nth-child(3n+1) {
-      grid-column: 2; /* la coloca al centro en pantallas grandes (3 columnas) */
+      grid-column: 2;
     }
   }
   @media (min-width: 640px) and (max-width: 1023px) {
     .grid > :last-child:nth-child(2n+1) {
-      grid-column: 1 / span 2; /* centra en grids de 2 columnas */
+      grid-column: 1 / span 2;
       justify-self: center;
     }
   }
 </style>
-

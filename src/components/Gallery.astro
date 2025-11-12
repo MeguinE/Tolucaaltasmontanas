@@ -1,0 +1,32 @@
+---
+import { galleryImages } from '../data/galery.js';
+---
+
+<section id="gallery" class="bg-black text-white py-16">
+  <div class="container mx-auto px-6 text-center"  >
+    <h3 class="text-5xl font-extrabold tracking-wide text-red-700 drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)]">
+      Galería de Fotos
+    </h2>
+    <br>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 animate-fadeIn">
+      {galleryImages.map((image) => (
+        <div class="relative group overflow-hidden rounded-lg shadow-lg border border-white/10">
+          <img
+            src={image.src}
+            alt={image.alt}
+            class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110"
+          />
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+          ></div>
+          <p
+            class="absolute bottom-2 left-3 text-white text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+          >
+            {image.alt}
+          </p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
