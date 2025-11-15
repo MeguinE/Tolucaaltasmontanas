@@ -1,0 +1,21 @@
+---
+import CategoryRegisterForm from "../components/ContactForm.jsx";
+import { trainingData } from "../data/TrainingData.js";
+import "../styles/ContactSection.css";
+---
+
+<section class="relative py-24 text-black overflow-hidden" id="registro">
+
+
+    <div class="relative max-w-4xl mx-auto px-6">
+        <h2
+            class="text-4xl font-extrabold mb-12 text-center uppercase tracking-wide text-red-700"
+        >
+            Registro de Jugador
+        </h2>
+
+        <div class="max-w-3xl mx-auto">
+            <CategoryRegisterForm trainingData={trainingData} client:load />
+        </div>
+    </div>
+</section>
