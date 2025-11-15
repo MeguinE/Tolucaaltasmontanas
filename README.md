@@ -1,10 +1,24 @@
-# Astro Starter Kit: Basics
+⚽ Toluca Altas Montañas – Landing Page
 
-```sh
-pnpm create astro@latest -- --template basics
-```
+Landing page oficial del club Toluca Altas Montañas, diseñada para gestionar registros de jugadores mediante un formulario moderno y una interfaz rápida construida con Astro.
+
+🌐 Demo en producción: tolucaaltasmontanas.vercel.app
 
 > 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+
+🏆 Características principales
+
+Página web ligera y ultra-rápida gracias a Astro
+
+Secciones informativas: Hero, Sobre el club, Galería, Entrenamientos, Registro
+
+Formulario de inscripción completamente funcional
+
+Optimizada para SEO y velocidad
+
+Diseño adaptable para móviles (responsive)
+
+Desplegada en Vercel para máxima eficiencia
 
 ## 🚀 Project Structure
 
@@ -75,6 +89,14 @@ All commands are run from the root of the project, from a terminal:
 | `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
 | `pnpm astro -- --help` | Get help using the Astro CLI                     |
 
-## 👀 Want to learn more?
+📌 Roadmap
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+ Integrar base de datos para almacenar registros
+
+ Panel administrativo para ver solicitudes
+
+ Mejoras de accesibilidad
+
+ Modo oscuro
+
+ Optimización de imágenes
