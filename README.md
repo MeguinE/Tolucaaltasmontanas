@@ -1,28 +1,23 @@
-⚽ Toluca Altas Montañas – Landing Page
+# ⚽ Toluca Altas Montañas – Landing Page
 
-Landing page oficial del club Toluca Altas Montañas, diseñada para gestionar registros de jugadores mediante un formulario moderno y una interfaz rápida construida con Astro.
+Landing page oficial del club **Toluca Altas Montañas**, diseñada para gestionar registros de jugadores mediante un formulario moderno y una interfaz rápida construida con **Astro**.
 
-🌐 Demo en producción: tolucaaltasmontanas.vercel.app
+🌐 **Demo en producción:** https://tolucaaltasmontanas.vercel.app
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+---
 
-🏆 Características principales
+## 🏆 Características principales
 
-Página web ligera y ultra-rápida gracias a Astro
+- Página web ligera y ultra-rápida gracias a Astro  
+- Secciones: Hero, Sobre el club, Galería, Entrenamientos, Registro  
+- Formulario de inscripción completamente funcional  
+- Optimización SEO  
+- Diseño responsive  
+- Desplegada en Vercel  
 
-Secciones informativas: Hero, Sobre el club, Galería, Entrenamientos, Registro
+---
 
-Formulario de inscripción completamente funcional
-
-Optimizada para SEO y velocidad
-
-Diseño adaptable para móviles (responsive)
-
-Desplegada en Vercel para máxima eficiencia
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
+## 🚀 Estructura del Proyecto
 
 ```text
 /
@@ -72,13 +67,12 @@ Inside of your Astro project, you'll see the following folders and files:
 ├── tsconfig.json
 └── README.md
 
-```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+```
 
 ## 🧞 Commands
 
-All commands are run from the root of the project, from a terminal:
+Todos los comandos se ejecutan desde la raíz del proyecto:
 
 | Command                   | Action                                           |
 | :------------------------ | :----------------------------------------------- |
