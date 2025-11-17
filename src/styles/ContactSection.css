@@ -1,6 +1,14 @@
 #registro {
+    position: relative;
     background-image: url("/img/wallpaper-toluca.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+}
+
+#registro::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55); /* oscurece fondo */
 }

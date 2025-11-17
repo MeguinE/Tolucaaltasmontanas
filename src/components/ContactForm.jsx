@@ -1,9 +1,18 @@
 import { useState } from "react";
 
 export default function CategoryRegisterForm({ trainingData }) {
-  const categories = trainingData.map((c) => c.category);
+
+  // fallback por si trainingData llega undefined o null
+  const safeData = trainingData ?? [];
+
+  const categories = safeData.map((c) => c.category);
+
   const sedes = Array.from(
-    new Set(trainingData.flatMap((c) => c.locations.map((l) => l.name)))
+    new Set(
+      safeData.flatMap((c) =>
+        (c.locations ?? []).map((l) => l.name)
+      )
+    )
   );
 
   const [form, setForm] = useState({
@@ -27,10 +36,12 @@ export default function CategoryRegisterForm({ trainingData }) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="p-6 md:p-8 rounded-xl 
-        bg-red-700 opacity-80 shadow-xl backdrop-blur-md space-y-6"
+      className="relative p-8 md:p-10 rounded-2xl 
+    bg-red-700/80 shadow-2xl backdrop-blur-md 
+    space-y-6 border border-white/20." 
     >
-      {/* Campo genérico */}
+
+      {/* Campos genéricos */}
       {[
         { name: "name", label: "Nombre completo", type: "text", placeholder: "Ej: Juan Pérez" },
         { name: "age", label: "Edad", type: "number", placeholder: "Ej: 12" },
@@ -38,7 +49,7 @@ export default function CategoryRegisterForm({ trainingData }) {
         { name: "email", label: "Correo electrónico", type: "email", placeholder: "Ej: correo@gmail.com" },
       ].map(({ name, label, type, placeholder }) => (
         <div key={name}>
-          <label className="text-white font-semibold">
+          <label className="text-white font-semibold tracking-wide">
             {label}
           </label>
           <input
@@ -46,15 +57,18 @@ export default function CategoryRegisterForm({ trainingData }) {
             type={type}
             placeholder={placeholder}
             onChange={handleChange}
-            className="w-full mt-1 p-3 rounded-lg bg-white/90 
-              text-black shadow-inner focus:ring-2 focus:ring-red-600"
+            className="w-full mt-1 p-3 rounded-lg bg-white/95 text-black 
+            shadow-md border border-gray-200
+            focus:ring-2 focus:ring-red-600 focus:border-red-600
+            transition"
           />
         </div>
       ))}
 
       {/* Selección de categoría */}
       <div>
-        <label className="text-white font-semibold">Categoría</label>
+        <label className="text-white font-semibold tracking-wide">
+          Categoría</label>
         <select
           name="category"
           onChange={handleChange}
@@ -70,7 +84,8 @@ export default function CategoryRegisterForm({ trainingData }) {
 
       {/* Selección de sede */}
       <div>
-        <label className="text-white font-semibold">Sede</label>
+        <label className="text-white font-semibold tracking-wide">
+          Sede</label>
         <select
           name="sede"
           onChange={handleChange}
@@ -86,7 +101,7 @@ export default function CategoryRegisterForm({ trainingData }) {
 
       {/* Mensaje */}
       <div>
-        <label className="text-white font-semibold">
+        <label className="text-white font-semibold tracking-wide">
           Información adicional
         </label>
         <textarea
@@ -97,11 +112,12 @@ export default function CategoryRegisterForm({ trainingData }) {
             text-black shadow-inner focus:ring-2 focus:ring-red-600"
         />
       </div>
-
       <button
-        className="w-full bg-white text-red-700 font-semibold 
-          py-3 rounded-lg shadow-lg hover:bg-red-600 hover:text-white 
-          transition"
+        className="w-full bg-white text-red-700 font-bold 
+    py-3 rounded-lg shadow-xl
+    hover:bg-red-600 hover:text-white 
+    hover:shadow-2xl transition-transform 
+    active:scale-[0.98]"
       >
         Enviar Registro
       </button>
