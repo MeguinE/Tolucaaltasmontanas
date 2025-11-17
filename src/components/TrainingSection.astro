@@ -1,9 +1,15 @@
 ---
-import { trainingData } from "../data/TrainingData.js";
+import { getTrainingData } from "../data/TrainingData.js";
+
+
+
+const trainingData = await getTrainingData();
 ---
 
+
 <section
-  class="relative py-20 bg-gradient-to-br from-red-700 via-red-800 to-black text-white overflow-hidden" id ="training"
+  class="relative py-20 bg-gradient-to-br from-red-700 via-red-800 to-black text-white overflow-hidden"
+  id="training"
 >
   <!-- fondo con patrón -->
   <div
@@ -11,7 +17,9 @@ import { trainingData } from "../data/TrainingData.js";
   ></div>
 
   <div class="relative max-w-6xl mx-auto px-6">
-    <h2 class="text-4xl font-extrabold mb-14 text-center uppercase tracking-wide text-white drop-shadow-lg">
+    <h2
+      class="text-4xl font-extrabold mb-14 text-center uppercase tracking-wide text-white drop-shadow-lg"
+    >
       Categorías
     </h2>
 
@@ -70,12 +78,12 @@ import { trainingData } from "../data/TrainingData.js";
 <style>
   /* centra última tarjeta si queda sola */
   @media (min-width: 1024px) {
-    .grid > :last-child:nth-child(3n+1) {
+    .grid > :last-child:nth-child(3n + 1) {
       grid-column: 2;
     }
   }
   @media (min-width: 640px) and (max-width: 1023px) {
-    .grid > :last-child:nth-child(2n+1) {
+    .grid > :last-child:nth-child(2n + 1) {
       grid-column: 1 / span 2;
       justify-self: center;
     }
