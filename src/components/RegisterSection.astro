@@ -1,6 +1,9 @@
 ---
 import CategoryRegisterForm from "../components/ContactForm.jsx";
-import { trainingData } from "../data/TrainingData.js";
+import { getTrainingData } from "../data/TrainingData.js";
+
+const trainingData = await getTrainingData();
+
 import "../styles/ContactSection.css";
 ---
 
