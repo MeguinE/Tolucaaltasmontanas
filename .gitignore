@@ -15,10 +15,20 @@ pnpm-debug.log*
 
 # environment variables
 .env
+.env.local
+.env.development
 .env.production
+.env.test
 
-# macOS-specific files
+# system files
 .DS_Store
 
-# jetbrains setting folder
+# IDE folders
 .idea/
+.vscode/
+
+# vercel
+.vercel/
+
+# vite cache
+.vite/
