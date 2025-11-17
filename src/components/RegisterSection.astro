@@ -1,8 +1,11 @@
 ---
 import CategoryRegisterForm from "../components/ContactForm.jsx";
-import { trainingData } from "../data/TrainingData.js";
+import { getTrainingData } from "../data/TrainingData.js";
 import "../styles/ContactSection.css";
+
+const trainingData = await getTrainingData();
 ---
+
 
 <section id="registro" class="relative py-24 overflow-hidden">
     <div class="relative max-w-4xl mx-auto px-6">
@@ -16,4 +19,6 @@ import "../styles/ContactSection.css";
             <CategoryRegisterForm trainingData={trainingData} client:load />
         </div>
     </div>
+
+    
 </section>
