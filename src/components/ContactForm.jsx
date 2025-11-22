@@ -28,17 +28,111 @@ export default function CategoryRegisterForm({ trainingData }) {
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Datos del jugador:", form);
+  const getCategoryId = (name) => {
+    const cat = safeData.find((c) => c.category === name);
+    return cat?.category_id ?? null;
   };
+
+  const getSedeId = (name) => {
+    const sede = safeData
+      .flatMap((c) => c.locations)
+      .find((l) => l.name === name);
+    return sede?.id ?? null;
+  };
+
+  // Quitar espacios extra y caracteres raros
+  const cleanText = (str) =>
+    String(str)
+      .trim()
+      .replace(/\s+/g, " ")         // espacios dobles → uno
+      .replace(/[<>]/g, "");         // evita inyección HTML
+
+  // Solo números
+  const cleanNumber = (str) =>
+    String(str).replace(/\D+/g, "");
+
+  // Sanitizar email
+  const cleanEmail = (str) =>
+    String(str)
+      .trim()
+      .toLowerCase()
+      .replace(/[^\w@.\-+]/g, "");
+
+  // Sanitizar notas, permite letras + números + puntuación básica
+  const cleanMessage = (str) =>
+    String(str)
+      .trim()
+      .replace(/[<>]/g, "")
+      .replace(/[^a-zA-Z0-9áéíóúÁÉÍÓÚñÑ.,;:()\- ]/g, "");
+
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const payload = {
+      nombre: form.name.trim().toLowerCase(),
+      edad: Number(form.age),
+      telefono: form.phone.trim(),
+      correo: form.email.trim().toLowerCase(),
+      categoria_id: getCategoryId(form.category),
+      sede_id: getSedeId(form.sede),
+      notas: form.message.trim()
+    };
+
+
+    // Validaciones básicas
+    if (!payload.nombre) return alert("Ingresa un nombre válido.");
+    if (!payload.edad || payload.edad < 3 || payload.edad > 20)
+      return alert("Edad inválida (3 a 20 años).");
+    if (payload.telefono.length < 10)
+      return alert("Teléfono inválido.");
+    if (!payload.correo.includes("@"))
+      return alert("Correo inválido.");
+    if (!payload.categoria_id)
+      return alert("Selecciona una categoría.");
+    if (!payload.sede_id)
+      return alert("Selecciona una sede.");
+
+    console.log("Enviando payload saneado:", payload);
+
+    const res = await fetch("/api/Register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+
+    const json = await res.json();
+
+    if (json.duplicate) {
+      alert("⚠️ Esta persona ya está registrada. No se permiten registros duplicados.");
+      return;
+    }
+
+    if (json.ok) {
+      alert("Registro enviado ✔️");
+      setForm({
+        name: "",
+        age: "",
+        phone: "",
+        email: "",
+        category: "",
+        sede: "",
+        message: "",
+      });
+    } else {
+      alert("Error al registrar ❌");
+      console.error(json.error);
+    }
+  };
+
+
 
   return (
     <form
       onSubmit={handleSubmit}
       className="relative p-8 md:p-10 rounded-2xl 
     bg-red-700/80 shadow-2xl backdrop-blur-md 
-    space-y-6 border border-white/20." 
+    space-y-6 border border-white/20."
     >
 
       {/* Campos genéricos */}

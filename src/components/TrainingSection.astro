@@ -1,11 +1,7 @@
 ---
 import { getTrainingData } from "../data/TrainingData.js";
-
-
-
 const trainingData = await getTrainingData();
 ---
-
 
 <section
   class="relative py-20 bg-gradient-to-br from-red-700 via-red-800 to-black text-white overflow-hidden"
@@ -14,7 +10,8 @@ const trainingData = await getTrainingData();
   <!-- fondo con patrón -->
   <div
     class="absolute inset-0 bg-[url('/img/background-image.jpg')] bg-cover bg-center opacity-5"
-  ></div>
+  >
+  </div>
 
   <div class="relative max-w-6xl mx-auto px-6">
     <h2
@@ -24,53 +21,52 @@ const trainingData = await getTrainingData();
     </h2>
 
     <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-3 justify-items-center">
-      {trainingData.map((cat) => (
-        <div
-          class="group relative bg-gradient-to-b from-white/10 to-white/5 rounded-xl shadow-xl overflow-hidden transform transition-all duration-500 hover:scale-[1.03] hover:shadow-2xl hover:from-white/20"
-        >
-          <div class="relative">
-            <img
-              src={cat.image}
-              alt={cat.category}
-              class="h-52 w-full object-cover transition-transform duration-500 group-hover:scale-110"
-            />
-            <div
-              class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-300"
-            ></div>
-            <h3
-              class="absolute bottom-3 left-4 text-xl font-semibold text-amber-200 tracking-wide"
-            >
-              {cat.category}
-            </h3>
-          </div>
-
-          <div class="p-6">
-            <p class="text-gray-200 mb-4 text-sm italic">{cat.years}</p>
-
-            <div class="mb-4">
-              <h4 class="text-white font-semibold mb-1 border-l-4 border-red-500 pl-2">
-                Horarios
-              </h4>
-              <ul class="text-gray-300 text-sm space-y-1 leading-relaxed">
-                {cat.schedule.map((s) => (
-                  <li>{s.day ? `${s.day}: ${s.time}` : s.note}</li>
-                ))}
-              </ul>
+      {
+        trainingData.map((cat) => (
+          <div class="group relative bg-gradient-to-b from-white/10 to-white/5 rounded-xl shadow-xl overflow-hidden transform transition-all duration-500 hover:scale-[1.03] hover:shadow-2xl hover:from-white/20">
+            <div class="relative">
+              <img
+                src={cat.image}
+                alt={cat.category}
+                class="h-52 w-full object-cover transition-transform duration-500 group-hover:scale-110"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-300" />
+              <h3 class="absolute bottom-3 left-4 text-xl font-semibold text-amber-200 tracking-wide">
+                {cat.category}
+              </h3>
             </div>
 
-            <div>
-              <h4 class="text-white font-semibold mb-1 border-l-4 border-red-500 pl-2">
-                Sedes
-              </h4>
-              <ul class="text-gray-300 text-sm space-y-1 leading-relaxed">
-                {cat.locations.map((loc) => (
-                  <li>{loc.name}</li>
-                ))}
-              </ul>
+            <div class="p-6">
+              <p class="text-gray-200 mb-4 text-sm italic">{cat.years}</p>
+
+              <div class="mb-4">
+                <h4 class="text-white font-semibold mb-1 border-l-4 border-red-500 pl-2">
+                  Horarios
+                </h4>
+                <ul class="text-gray-300 text-sm space-y-1 leading-relaxed">
+                  {cat.schedule.map((s, i) => (
+                    <li data-key={i}>
+                      {s.day}: {s.time}
+                      {s.note ? ` — ${s.note}` : ""}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div>
+                <h4 class="text-white font-semibold mb-1 border-l-4 border-red-500 pl-2">
+                  Sedes
+                </h4>
+                <ul class="text-gray-300 text-sm space-y-1 leading-relaxed">
+                  {cat.locations.map((loc) => (
+                    <li>{loc.name}</li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </div>
-        </div>
-      ))}
+        ))
+      }
     </div>
   </div>
 </section>

@@ -8,49 +8,46 @@ const supabaseKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 export async function getTrainingData() {
-  // Obtener categorías con sus horarios
-  const { data: categorias, error: catError } = await supabase
-  .from("categorias")
-  .select(`
-    id,
-    nombre,
-    anio_inicio,
-    anio_fin,
-    horarios:horarios_categoria (
-      dia,
-      hora_inicio,
-      hora_fin,
-      nota
-    )
-  `);
+  const { data: categorias } = await supabase
+    .from("categorias")
+    .select(`
+      id,
+      nombre,
+      anio_inicio,
+      anio_fin,
+      horarios:horarios_categoria (
+        dia,
+        hora_inicio,
+        hora_fin,
+        nota
+      )
+    `);
 
-  if (catError) throw new Error(catError.message);
-
-  // Obtener sedes (solo nombre)
-  const { data: sedes, error: sedesError } = await supabase
+  const { data: sedes } = await supabase
     .from("sedes")
-    .select("nombre");
+    .select("id, nombre");
 
-  if (sedesError) throw new Error(sedesError.message);
-
-  // Formato final para tu frontend
   return categorias.map((cat) => ({
     id: cat.id,
     category: cat.nombre,
+    category_id: cat.id,
     years: `${cat.anio_inicio} / ${cat.anio_fin}`,
-    image: "img/training.jpg", // Tu imagen default
-    schedule: [
-      ...cat.horarios.map((h) => ({
-        day: h.dia,
-        time: `${formatTime(h.hora_inicio)} - ${formatTime(h.hora_fin)}`
-      })),
-      { note: cat.horarios[0]?.nota || "" }
-    ],
+    image: "img/training.jpg",
+
+    schedule: cat.horarios.map((h) => ({
+      day: h.dia,
+      time: `${formatTime(h.hora_inicio)} - ${formatTime(h.hora_fin)}`,
+      note: h.nota ?? null,
+    })),
+
+    // ENVIAMOS TODAS LAS SEDES DISPONIBLES (ya con id)
     locations: sedes.map((s) => ({
-      name: s.nombre
-    }))
+      id: s.id,
+      name: s.nombre,
+    })),
   }));
 }
+
 
 // Convertir 16:00 → 4:00 PM
 function formatTime(time) {
