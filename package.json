@@ -18,5 +18,8 @@
     "react-dom": "^19.2.0",
     "sharp": "^0.34.5",
     "tailwindcss": "^4.1.17"
+  },
+  "devDependencies": {
+    "@astrojs/vercel": "^9.0.1"
   }
 }

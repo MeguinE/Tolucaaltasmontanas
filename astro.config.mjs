@@ -1,14 +1,15 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 
+import vercel from '@astrojs/vercel/serverless';
 import react from '@astrojs/react';
 import tailwindcss from '@tailwindcss/vite';
-import { defineConfig } from 'astro/config';
-import dotenv from 'dotenv';
 
 export default defineConfig({
+  output: 'server',     // ← Obligatorio para endpoints
+  adapter: vercel(),    // ← Necesario en Vercel
   integrations: [
-    react()    // ← ACTIVA REACT EN ASTRO
+    react()
   ],
   vite: {
     plugins: [tailwindcss()]
