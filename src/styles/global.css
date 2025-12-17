@@ -1,23 +1,18 @@
 @import "tailwindcss";
 
+
 @tailwind utilities;
 
 
 /* ✅ Definición de tu tema usando @theme */
-@keyframes borderGlow {
-  0% {
-    border-image-source: linear-gradient(0deg, #ff0000, #ffffff, #ff0000);
-  }
-  50% {
-    border-image-source: linear-gradient(180deg, #ff0000, #ffffff, #ff0000);
-  }
-  100% {
-    border-image-source: linear-gradient(360deg, #ff0000, #ffffff, #ff0000);
-  }
+/* Paleta inspirada en Toluca: rojo > blanco > negro */
+:root{
+  --tol-rojo: #D50032;
+  --tol-blanco: #FFFFFF;
+  --tol-negro: #0B0B0C;
 }
 
-.animate-border-glow {
-  border-image-slice: 1;
-  border-image-source: linear-gradient(0deg, #ff0000, #ffffff, #ff0000);
-  animation: borderGlow 6s linear infinite;
+body{
+  background: var(--tol-blanco);
+  color: var(--tol-negro);
 }
