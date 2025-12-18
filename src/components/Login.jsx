@@ -55,7 +55,7 @@ export default function Login() {
       };
 
       localStorage.setItem("usuario", JSON.stringify(sessionUser));
-      window.location.assign("/admin/dashboard/dashboard");
+      window.location.assign("/admin/dashboard");
     } catch (err) {
       setErrorMsg("Ocurrió un error al iniciar sesión");
     } finally {
