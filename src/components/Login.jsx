@@ -7,18 +7,16 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showPass, setShowPass] = useState(false);
 
-  // Paleta coherente con tu landing (claro + rojo acento)
   const C = {
     red: "#D50032",
-    redDark: "#B8002A",
     bg: "#F4F5F7",
     card: "#FFFFFF",
     text: "#111827",
     muted: "#6B7280",
     line: "#E5E7EB",
     soft: "#F9FAFB",
-    blackBtn: "#0B0B0C",
   };
 
   async function handleLogin(e) {
@@ -41,38 +39,27 @@ export default function Login() {
       }
 
       const validPassword = await bcrypt.compare(password, user.password_hash);
-
       if (!validPassword) {
         setErrorMsg("Contraseña incorrecta");
         return;
       }
 
-      const sessionUser = {
-        id: user.id,
-        email: user.email,
-        nombre: user.nombre,
-        rol: user.rol,
-      };
-
-      localStorage.setItem("usuario", JSON.stringify(sessionUser));
-      window.location.assign("/admin/dashboard/dashboard");
-    } catch (err) {
+      localStorage.setItem(
+        "usuario",
+        JSON.stringify({ id: user.id, email: user.email, nombre: user.nombre, rol: user.rol })
+      );
+      window.location.assign("/admin/dashboard");
+    } catch {
       setErrorMsg("Ocurrió un error al iniciar sesión");
     } finally {
       setLoading(false);
     }
   }
 
-  function handleLogout() {
-    localStorage.removeItem("usuario");
-    alert("Sesión cerrada");
-  }
-
   return (
     <div style={styles.page(C)}>
       <div style={styles.card(C)}>
-        {/* Barra superior roja como tu estilo */}
-        <div style={styles.topBar(C)} />
+        <div style={{ height: 6, background: C.red }} />
 
         <div style={styles.header(C)}>
           <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
@@ -83,49 +70,58 @@ export default function Login() {
                 style={{ width: 40, height: 40, objectFit: "contain" }}
               />
             </div>
-            <div style={{ lineHeight: 1.15 }}>
-              <div style={styles.headerTitle(C)}>Toluca Altas Montañas</div>
-              <div style={styles.headerSubtitle(C)}>Acceso al panel</div>
+            <div style={{ lineHeight: 1.25 }}>
+              <div style={{ fontSize: 16, fontWeight: 900, color: C.text }}>Toluca Altas Montañas</div>
+              <div style={{ fontSize: 12, color: C.muted, fontWeight: 700, marginTop: 2 }}>Panel de administración</div>
+            </div>
+          </div>
+          <span style={styles.badge(C)}>ADMIN</span>
+        </div>
+
+        <form onSubmit={handleLogin} style={{ padding: "20px 22px 24px" }}>
+          <div style={{ marginBottom: 14 }}>
+            <label style={styles.label(C)}>Correo electrónico</label>
+            <div style={styles.inputWrap(C, !!errorMsg)}>
+              <span style={{ fontSize: 14, opacity: 0.6 }}>✉️</span>
+              <input
+                type="email"
+                placeholder="tucorreo@dominio.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                autoComplete="email"
+                style={styles.input(C)}
+              />
             </div>
           </div>
 
-          <div style={styles.badge(C)}>ADMIN</div>
-        </div>
-
-        <form onSubmit={handleLogin} style={{ padding: 22 }}>
-          <label style={styles.label(C)}>Correo</label>
-          <div style={styles.inputWrap(C, !!errorMsg)}>
-            <span style={styles.icon(C)}>✉️</span>
-            <input
-              type="email"
-              placeholder="tucorreo@dominio.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              autoComplete="email"
-              style={styles.input(C)}
-            />
-          </div>
-
-          <label style={{ ...styles.label(C), marginTop: 14 }}>
-            Contraseña
-          </label>
-          <div style={styles.inputWrap(C, !!errorMsg)}>
-            <span style={styles.icon(C)}>🔒</span>
-            <input
-              type="password"
-              placeholder="••••••••"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              autoComplete="current-password"
-              style={styles.input(C)}
-            />
+          <div style={{ marginBottom: 6 }}>
+            <label style={styles.label(C)}>Contraseña</label>
+            <div style={styles.inputWrap(C, !!errorMsg)}>
+              <span style={{ fontSize: 14, opacity: 0.6 }}>🔒</span>
+              <input
+                type={showPass ? "text" : "password"}
+                placeholder="••••••••"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                autoComplete="current-password"
+                style={{ ...styles.input(C), flex: 1 }}
+              />
+              <button
+                type="button"
+                onClick={() => setShowPass((p) => !p)}
+                style={{ background: "none", border: "none", cursor: "pointer", color: C.muted, fontSize: 14, padding: "0 2px" }}
+                tabIndex={-1}
+              >
+                {showPass ? "🙈" : "👁️"}
+              </button>
+            </div>
           </div>
 
           {errorMsg && (
             <div style={styles.errorBox(C)}>
-              <strong style={{ marginRight: 8 }}>⚠</strong> {errorMsg}
+              <strong style={{ marginRight: 6 }}>⚠</strong> {errorMsg}
             </div>
           )}
 
@@ -134,19 +130,11 @@ export default function Login() {
             disabled={loading}
             style={styles.primaryBtn(C, loading)}
           >
-            {loading ? "Entrando..." : "Entrar"}
+            {loading ? "Iniciando sesión…" : "Entrar al panel"}
           </button>
 
-          <button
-            type="button"
-            onClick={handleLogout}
-            style={styles.secondaryBtn(C)}
-          >
-            Cerrar sesión
-          </button>
-
-          <div style={styles.footerNote(C)}>
-            Tip: revisa mayúsculas y espacios al final del correo.
+          <div style={{ marginTop: 14, fontSize: 12, color: C.muted, textAlign: "center" }}>
+            Acceso restringido — solo personal autorizado.
           </div>
         </form>
       </div>
@@ -163,33 +151,24 @@ const styles = {
     background: `
       radial-gradient(900px 500px at 20% 10%, rgba(213,0,50,.10), transparent 60%),
       radial-gradient(900px 500px at 80% 90%, rgba(213,0,50,.08), transparent 60%),
-      linear-gradient(180deg, ${C.bg}, ${C.bg})
+      ${C.bg}
     `,
   }),
-
   card: (C) => ({
-    width: "min(440px, 94vw)",
+    width: "min(420px, 94vw)",
     borderRadius: 22,
     overflow: "hidden",
     background: C.card,
     border: `1px solid ${C.line}`,
-    boxShadow: "0 18px 50px rgba(0,0,0,.10)",
+    boxShadow: "0 20px 60px rgba(0,0,0,.12)",
   }),
-
-  topBar: (C) => ({
-    height: 6,
-    background: C.red,
-  }),
-
   header: (C) => ({
-    padding: "18px 20px",
+    padding: "16px 20px",
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
-    background: C.card,
     borderBottom: `1px solid ${C.line}`,
   }),
-
   logoWrap: (C) => ({
     height: 52,
     width: 52,
@@ -199,34 +178,18 @@ const styles = {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    boxShadow: "0 12px 28px rgba(213,0,50,.12)",
+    boxShadow: "0 8px 24px rgba(213,0,50,.15)",
   }),
-
-  headerTitle: (C) => ({
-    fontSize: 16,
-    fontWeight: 900,
-    color: C.text,
-    letterSpacing: 0.2,
-  }),
-
-  headerSubtitle: (C) => ({
-    marginTop: 4,
-    fontSize: 12.5,
-    color: C.muted,
-    fontWeight: 700,
-  }),
-
   badge: (C) => ({
     fontWeight: 900,
-    fontSize: 12,
-    letterSpacing: 1.2,
-    padding: "8px 10px",
+    fontSize: 11,
+    letterSpacing: 1.5,
+    padding: "6px 10px",
     borderRadius: 999,
     background: "rgba(213,0,50,.08)",
-    border: `1px solid rgba(213,0,50,.25)`,
+    border: "1px solid rgba(213,0,50,.25)",
     color: C.red,
   }),
-
   label: (C) => ({
     display: "block",
     fontSize: 12.5,
@@ -234,23 +197,16 @@ const styles = {
     marginBottom: 7,
     color: C.text,
   }),
-
   inputWrap: (C, hasError) => ({
     display: "flex",
     alignItems: "center",
     gap: 10,
-    padding: "12px 12px",
+    padding: "12px 14px",
     borderRadius: 14,
     background: C.soft,
-    border: `1px solid ${hasError ? C.red : C.line}`,
-    boxShadow: hasError ? `0 0 0 3px rgba(213,0,50,.12)` : "none",
+    border: `1.5px solid ${hasError ? C.red : C.line}`,
+    boxShadow: hasError ? "0 0 0 3px rgba(213,0,50,.12)" : "none",
   }),
-
-  icon: () => ({
-    fontSize: 14,
-    opacity: 0.75,
-  }),
-
   input: (C) => ({
     width: "100%",
     border: "none",
@@ -259,52 +215,31 @@ const styles = {
     background: "transparent",
     color: C.text,
   }),
-
-  errorBox: (C) => ({
-    marginTop: 14,
-    padding: "11px 12px",
-    borderRadius: 14,
+  errorBox: () => ({
+    marginTop: 12,
+    marginBottom: 4,
+    padding: "11px 14px",
+    borderRadius: 12,
     background: "rgba(213,0,50,.08)",
-    border: `1px solid rgba(213,0,50,.25)`,
+    border: "1px solid rgba(213,0,50,.25)",
     color: "#7C0F16",
     fontSize: 13.5,
     display: "flex",
     alignItems: "center",
     fontWeight: 700,
   }),
-
   primaryBtn: (C, loading) => ({
-    marginTop: 16,
+    marginTop: 18,
     width: "100%",
-    padding: "12px 12px",
+    padding: "13px 12px",
     borderRadius: 14,
     border: "none",
     cursor: loading ? "not-allowed" : "pointer",
-    background: loading ? "rgba(213,0,50,.65)" : C.red,
+    background: loading ? "rgba(213,0,50,.55)" : C.red,
     color: "white",
     fontWeight: 900,
-    letterSpacing: 0.2,
-    boxShadow: "0 14px 30px rgba(213,0,50,.18)",
-  }),
-
-  secondaryBtn: (C) => ({
-    marginTop: 10,
-    width: "100%",
-    padding: "12px 12px",
-    borderRadius: 14,
-    cursor: "pointer",
-    background: C.blackBtn,
-    border: "none",
-    color: "white",
-    fontWeight: 900,
-    boxShadow: "0 14px 30px rgba(0,0,0,.18)",
-  }),
-
-  footerNote: (C) => ({
-    marginTop: 14,
-    fontSize: 12,
-    color: C.muted,
-    textAlign: "center",
-    fontWeight: 600,
+    fontSize: 15,
+    boxShadow: "0 14px 30px rgba(213,0,50,.20)",
+    transition: "background .2s",
   }),
 };

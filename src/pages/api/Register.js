@@ -28,6 +28,7 @@ export async function POST({ request }) {
   if (existing) {
     return new Response(JSON.stringify({
       ok: false,
+      duplicate: true,
       message: "Ya existe un jugador registrado con este correo"
     }), { status: 409 });
   }
